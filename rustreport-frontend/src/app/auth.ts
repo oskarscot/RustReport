@@ -22,6 +22,10 @@ export function getAuthOptions(req?: NextRequest): AuthOptions {
                 if (account?.provider === STEAM_PROVIDER_ID && profile) {
                     const steamProfile = profile as SteamProfile;
                     token.steam = steamProfile;
+                    /* next-auth tokens are different to standard JWT tokens therefore we need to generate
+                       one ourselves to use for our backend, steamId is sufficient to be able to fetch everything else
+                       directly from database in spring.
+                     */
                     token.accessToken = jwt.sign(
                         {
                             steamId: steamProfile.steamid,
@@ -31,6 +35,7 @@ export function getAuthOptions(req?: NextRequest): AuthOptions {
                         process.env.NEXTAUTH_SECRET!,
                         { expiresIn: "24h" }
                     );
+                    //TODO: temporary for development. REMOVE ME!!
                     console.log("Generated Access Token:", token.accessToken);
                 }
                 return token;
