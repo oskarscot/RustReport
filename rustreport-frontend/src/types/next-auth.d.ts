@@ -1,4 +1,4 @@
-import {SteamProfile} from "next-auth-steam/lib/steam";
+import { SteamProfile } from "next-auth-steam/lib/steam";
 
 declare module "next-auth" {
     interface Session {
@@ -8,5 +8,11 @@ declare module "next-auth" {
             image?: string | null;
             steam: SteamProfile;
         };
+        accessToken?: string;
+    }
+
+    interface JWT {
+        steam?: SteamProfile;
+        accessToken?: string;
     }
 }
