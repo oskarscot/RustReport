@@ -4,12 +4,24 @@ import Sidebar from "@/components/sidebar";
 import ProfileDropdown from "@/components/profile-dropdown";
 import ReportsTable from "@/components/reports-table";
 import {getAuthOptions} from "@/app/auth";
+import axios from "axios";
 
 export default async function DashboardPage() {
     const session = await getServerSession(getAuthOptions());
 
     if (!session) {
         redirect("/auth/signin");
+    }
+
+    // TODO: Temp, remove me!
+    try {
+        await axios.get('http://localhost:8080/api/v1/me', {
+            headers: {
+                Authorization: `Bearer ${session.accessToken}`
+            },
+        }).then((response) => console.log('Got Response: ', response.data))
+    } catch (error) {
+        console.error('Error: ', error)
     }
 
     return (

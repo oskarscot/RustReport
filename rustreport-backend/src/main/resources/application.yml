@@ -1,0 +1,13 @@
+spring:
+  application:
+    name: "RustReport"
+  datasource:
+    url: jdbc:postgresql://localhost:5432/oskar
+    username: oskar
+    password: ""
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+# Next Auth Secret
+JWT_SECRET: ${JWT_SECRET}
